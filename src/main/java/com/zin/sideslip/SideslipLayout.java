@@ -3,14 +3,13 @@ package com.zin.sideslip;
 import android.content.Context;
 import android.graphics.PointF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Scroller;
-
-import com.zin.toolutils.log.LogcatUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +23,16 @@ import static com.zin.sideslip.SideslipLayout.ActionEvent.ACTION_RIGHT;
  */
 public class SideslipLayout extends ViewGroup {
 
-    private float fraction = 0.5f;
+    private final static String TAG = "SideslipLayout";
+    private final static float fraction = 0.5f;
+    
     private int scaledTouchSlop;
 
     private boolean isCanLeftSwipe;
     private boolean isCanRightSwipe;
 
     private final List<View> mMatchParentChildren = new ArrayList<>(1);
-    private static SideslipLayout mViewCache;
+    private SideslipLayout mViewCache;
     private static ActionEvent mActionEvent;
 
     private View mLeftView;
@@ -222,12 +223,11 @@ public class SideslipLayout extends ViewGroup {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-
         switch (ev.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
 
-                LogcatUtil.getInstance().info("ACTION_DOWN", this);
+                Log.d(TAG, "ACTION_DOWN");
 
                 if (mLastP == null) {
                     mLastP = new PointF();
@@ -242,7 +242,7 @@ public class SideslipLayout extends ViewGroup {
 
             case MotionEvent.ACTION_MOVE:
 
-                LogcatUtil.getInstance().info("ACTION_MOVE", this);
+                Log.d(TAG, "ACTION_MOVE");
 
                 float distanceX = mLastP.x - ev.getRawX();
                 float distanceY = mLastP.y - ev.getRawY();
@@ -265,7 +265,7 @@ public class SideslipLayout extends ViewGroup {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
 
-                LogcatUtil.getInstance().info("ACTION_UP or ACTION_CANCEL", this);
+                Log.d(TAG, "ACTION_UP or ACTION_CANCEL");
 
                 ActionEvent actionEvent = getActionEvent();
                 finalSwipe(actionEvent);
@@ -303,13 +303,13 @@ public class SideslipLayout extends ViewGroup {
         if (scrollX < 0 && mLeftView != null) { // right move
 
             if (Math.abs(mLeftView.getWidth() * fraction) < Math.abs(scrollX)) {
-                LogcatUtil.getInstance().info("right move", this);
+                Log.d(TAG, "right move");
                 return ACTION_LEFT;
             }
         } else if (scrollX > 0 && mRightView != null) { // left move
 
             if (Math.abs(mRightView.getWidth() * fraction) < Math.abs(scrollX)) {
-                LogcatUtil.getInstance().info("left move", this);
+                Log.d(TAG, "left move");
                 return ACTION_RIGHT;
             }
         }
@@ -359,7 +359,7 @@ public class SideslipLayout extends ViewGroup {
                 break;
 
             default:
-                LogcatUtil.getInstance().error("Note that other event!!");
+                Log.e(TAG, "Note that other event!!");
                 break;
         }
 
