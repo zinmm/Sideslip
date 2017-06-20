@@ -93,3 +93,6 @@ setCanLeftRightSwipe(Boolean)  // can left swipe
 setCanRightSwipe(Boolean)      // can right swipe
 
 setCanLeftSwipe(Boolean)       // can left right swipe
+
+
+[！[]（https://jitpack.io/v/zinmm/Sideslip.svg）（https://jitpack.io/#zinmm/Sideslip）
