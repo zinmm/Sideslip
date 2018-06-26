@@ -19,7 +19,7 @@ import static com.zin.sideslip.SideslipLayout.ActionEvent.ACTION_LEFT;
 import static com.zin.sideslip.SideslipLayout.ActionEvent.ACTION_RIGHT;
 
 /**
- * Created by zhujinming on 2017/6/19.
+ * Created by ZhuJinMing on 2017/6/19.
  */
 public class SideslipLayout extends ViewGroup {
 
